@@ -1,4 +1,3 @@
-import pickle
 from datetime import datetime
 
 
@@ -8,7 +7,7 @@ def get_month():
     return months
 
 
-def get_dates(games):
+def get_dates(games: list):
     months = get_month()
     for n in games:
         n['date'] = n['date'].split(' ')
@@ -23,16 +22,5 @@ def get_dates(games):
     return games
 
 
-def get_file():
-    with open('games.pkl', 'rb') as f:
-        return pickle.load(f)
-
-
-def main():
-    games = get_file()
-    get_dates(games)
-    return games
-
-
 if __name__ == '__main__':
-    print(main())
+    print(get_dates([]))

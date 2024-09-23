@@ -1,7 +1,9 @@
 import requests
 import pickle
+from get_files import get_file
 from re import findall
 from bs4 import BeautifulSoup
+from get_dates import get_dates
 
 
 def get_online_games():
@@ -28,7 +30,7 @@ def get_online_games():
             break
     with open('games.pkl', 'wb') as f:
         pickle.dump(games, f)
-    return games
+    return get_dates(games)
 
 
 def main():
@@ -40,4 +42,11 @@ def main():
 
 if __name__ == '__main__':
     games = main()
-    print(*games, sep='\n')
+    tournaments = get_file('tournaments.txt')
+    print(tournaments)
+    for game in games:
+        if game['date'].day == 23:
+            for tournament in tournaments:
+                if tournament in game['server']:
+                    print(game)
+                    break

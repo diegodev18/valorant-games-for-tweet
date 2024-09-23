@@ -6,7 +6,7 @@ from random import choice
 from get_files import get_file
 from get_twitter_api import get_api_main
 from upload_item_to_write import upload_items
-import get_games_from_file
+import get_dates
 import get_online_games
 
 

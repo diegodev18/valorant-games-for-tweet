@@ -5,13 +5,8 @@ from upload_item_to_write import upload_items
 import get_online_games
 
 
-def make_tweet_main(day=None):
+def make_tweet_main(day=datetime.now().day):
     emotes = "⌚🥵🤩🪐🍫🎬🤟🤯👏🔥🚀💣🎇🔫☣️☕🌭☀️"
-    # Check time
-    if day:
-        now = datetime.now().replace(microsecond=0).replace(day=day)
-    else:
-        now = datetime.now().replace(microsecond=0)
     # Get from files
     frases = get_file('frases.txt')
     arrobas = get_file('arrobas.txt')
@@ -21,7 +16,7 @@ def make_tweet_main(day=None):
     checked_games = []
     games = get_online_games.main()
     for game in games:
-        if (((game['date'].day == now.day and
+        if (((game['date'].day == day and
               any(tournament in game['server'].split(' ') for tournament in tournaments)) and
              len(games_today) != 6)):
             games_today.append(f"{game['server']} | {game['left']} vs {game['right']}")

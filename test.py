@@ -1,41 +1,32 @@
-from time import sleep
 from datetime import datetime
 from os import system
 from platform import platform
-from random import choice
-from get_files import get_file
-from upload_item_to_write import upload_items
+from time import sleep
+
 from make_tweet import make_tweet_main
-import get_online_games
-
-
-def upload_items(my_items_to_add: list, name: str):
-    try:
-        with open(name, 'r') as f:
-            my_items = f.read().split('\n')
-        f.close()
-    except FileNotFoundError:
-        my_items = []
-    with open(name, 'w') as f:
-        if len(my_items) != 0:
-            for item in my_items:
-                f.write(f'{item}\n')
-        f.write(f'{datetime.now()}\n')
-        for item in my_items_to_add:
-            f.write(f'{item}\n')
-    f.close()
+from get_times import get_sleep_time
 
 
 def main():
     # Clean screen
     system('cls' if 'windows' in platform().lower() else 'clear')
+
+    # Making the request
     while True:
-        tweet = make_tweet_main(23)
+        games_time = get_sleep_time(day=datetime.now().day+1, hour=1)
+        print(f'Esperando tiempo para CREAR el tweet... {games_time} segundos!\n')
+
+        tweet = make_tweet_main() # Crea el tweet (No lo sube)
+
+        tweet_time = get_sleep_time(hour=11, minute=53)
+        print(f'\nEsperando tiempo para SUBIR el tweet... {tweet_time} segundos!')
+        sleep(tweet_time)
+
         if tweet:
             print('\n' + tweet + '\n')
         else:
             print('No hay juegos hoy :(')
-        sleep(100)
+        break
 
 
 if __name__ == '__main__':

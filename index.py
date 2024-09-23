@@ -2,33 +2,25 @@ from time import sleep
 from datetime import datetime
 from os import system
 from platform import platform
-from random import choice
-from get_files import get_file
 from get_twitter_api import get_api_main
-from upload_item_to_write import upload_items
 from make_tweet import make_tweet_main
-import get_online_games
+from get_times import get_sleep_time
 
 
 def main():
-    # Clean screen
     system('cls' if 'windows' in platform().lower() else 'clear')
-
     oauth = get_api_main()
-
-    # Making the request
-    target = {'hour': 1, 'minute': 5, 'second': 0, 'microsecond': 0}
     while True:
-        # Check time
-        now = datetime.now().replace(microsecond=0)
-        now_target = now.replace(day=now.day + 1,
-                                 hour=target['hour'],
-                                 minute=target['minute'],
-                                 second=target['second'],
-                                 microsecond=target['microsecond'])
-        print(f'Esperando reinicio... {(now_target - now).total_seconds()} segundos!\n')
-        sleep((now_target - now).total_seconds())
+        games_time = get_sleep_time(day=datetime.now().day+1, hour=1)
+        print(f'Esperando tiempo para CREAR el tweet... {games_time} segundos!\n')
+        sleep(games_time)
+
         tweet = make_tweet_main()
+
+        tweet_time = get_sleep_time(hour=11)
+        print(f'\nEsperando tiempo para SUBIR el tweet... {tweet_time} segundos!')
+        sleep(tweet_time)
+
         if tweet:
             print('\n' + tweet + '\n')
             response = oauth.post(

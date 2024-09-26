@@ -20,7 +20,12 @@ def make_tweet_main(day=datetime.now().day):
               any(tournament in game['server'].split(' ') for tournament in tournaments)) and
              len(games_today) != 6)):
             games_today.append(f"{game['server']} | {game['left']} vs {game['right']}")
-            checked_games.append(game)
+        if any(tournament in game['server'] for tournament in tournaments):
+            checked_games.append(f"GAME ON TOURNAMENT LIST:      "
+                                 f"{game['server'][:10]} | {game['date']} | {game['left'][:10]} vs {game['right'][:10]}")
+        else:
+            checked_games.append(f"GAME WITHOUT TOURNAMENT LIST: "
+                                 f"{game['server'][:10]} | {game['date']} | {game['left'][:10]} vs {game['right'][:10]}")
     upload_items(checked_games, 'history.txt')
     if len(games_today) > 1:
         tweet = '\n'.join(games_today)[:275]

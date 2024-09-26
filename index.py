@@ -16,13 +16,14 @@ def main():
         sleep(games_time)
 
         tweet = make_tweet_main()
+        print(f'TWEET CREADO\n{tweet}\n')
 
         tweet_time = get_sleep_time(hour=11)
         print(f'\nEsperando tiempo para SUBIR el tweet... {tweet_time} segundos!')
         sleep(tweet_time)
 
         if tweet:
-            print('\n' + tweet + '\n')
+            # print('\n' + tweet + '\n')
             response = oauth.post(
                 "https://api.twitter.com/2/tweets",
                 json={'text': tweet},

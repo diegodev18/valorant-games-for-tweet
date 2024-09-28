@@ -37,6 +37,6 @@ def make_tweet_main(day=datetime.now().day):
 
 if __name__ == '__main__':
     try:
-        print(f'\n{make_tweet_main(23)}')
+        print(f'\n{make_tweet_main(28)}')
     except KeyboardInterrupt:
         print('\nAdios!')

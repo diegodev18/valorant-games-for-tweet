@@ -16,7 +16,7 @@ def main():
         games_time = get_sleep_time(day=datetime.now().day + 1, hour=1)
         print(f'Esperando tiempo para CREAR el tweet... {games_time} segundos!\n')
 
-        tweet = make_tweet_main(24)  # Crea el tweet (No lo sube)
+        tweet = make_tweet_main(datetime.now().day)  # Crea el tweet (No lo sube)
 
         tweet_time = get_sleep_time(day=datetime.now().day, hour=20)
         print(f'\nEsperando tiempo para SUBIR el tweet... {tweet_time} segundos!')

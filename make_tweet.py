@@ -5,7 +5,7 @@ from upload_item_to_write import upload_items
 import get_online_games
 
 
-def make_tweet_main(day=datetime.now().day):
+def make_tweet_main(day):
     emotes = "⌚🥵🤩🪐🍫🎬🤟🤯👏🔥🚀💣🎇🔫☣️☕🌭☀️"
     # Get from files
     frases = get_file('frases.txt')

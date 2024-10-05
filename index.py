@@ -5,11 +5,14 @@ from platform import platform
 from get_twitter_api import get_api_main
 from make_tweet import make_tweet_main
 from get_times import get_sleep_time
+from send_getcode_exportcode import get_code
+from send_noti_telegrambot import send_telegram_main
 
 
 def main():
     system('cls' if 'windows' in platform().lower() else 'clear')
     oauth = get_api_main()
+    telegram_codes = get_code('telegram_api.pkl') # {'bot_token': bot_token, 'chat_id': chat_id}
     while True:
         games_time = get_sleep_time(day=datetime.now().day+1, hour=1)
         print(f'Esperando tiempo para CREAR el tweet... {games_time} segundos!\n')
@@ -17,6 +20,7 @@ def main():
 
         tweet = make_tweet_main(datetime.now().day)
         print(f'TWEET CREADO\n{tweet}\n')
+        send_telegram_main(f'TWEET CREADO\n{tweet}', telegram_codes['bot_token'], telegram_codes['chat_id'])
 
         tweet_time = get_sleep_time(day=datetime.now().day, hour=11)
         print(f'\nEsperando tiempo para SUBIR el tweet... {tweet_time} segundos!')
@@ -33,6 +37,8 @@ def main():
             else:
                 print("Response code: ", response.status_code)
                 print("Tweet hecho con exito")
+                send_telegram_main('TWEET PUBLICADO EXITOSAMENTE', telegram_codes['bot_token'], telegram_codes['chat_id'])
+
         else:
             print('No hay juegos hoy :(')
 

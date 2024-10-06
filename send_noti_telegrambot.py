@@ -1,9 +1,10 @@
 import asyncio
 from telegram import Bot
 from send_getcode_exportcode import get_code
+from sys import platform
 
 
-asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy()) if 'win' in platform else None
 
 
 async def send_message(message: str, bot_token: str, chat_id: str):

@@ -10,6 +10,7 @@ from send_noti_telegrambot import send_telegram_main
 
 telegram_codes = get_code('telegram_api.pkl') # {'bot_token': bot_token, 'chat_id': chat_id}
 
+send_telegram_main('SCRIPT \"VALORANG_GAMES_FOR_TWEET\" INICIADO CON EXITO!', telegram_codes['bot_token'], telegram_codes['chat_id'])
 
 def main():
     system('cls' if 'windows' in platform().lower() else 'clear')

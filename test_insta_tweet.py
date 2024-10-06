@@ -1,56 +1,39 @@
-from time import sleep
 from datetime import datetime
 from os import system
 from platform import platform
-from random import choice
-from get_files import get_file
-from get_twitter_api import get_api_main
-from upload_item_to_write import upload_items
-import get_dates
-import get_online_games
+from time import sleep
+from make_tweet import make_tweet_main
+from get_times import get_sleep_time
+from send_getcode_exportcode import get_code
+from send_noti_telegrambot import send_telegram_main
+
+telegram_codes = get_code('telegram_api.pkl')
 
 
 def main():
     # Clean screen
     system('cls' if 'windows' in platform().lower() else 'clear')
 
-    oauth = get_api_main()
-
     # Making the request
-    target = {'hour': 11, 'minute': 0, 'second': 0, 'microsecond': 0}
-    emotes = "⌚🥵🤩🪐🍫🎬🤟🤯👏🔥🚀💣🎇🔫☣️☕🌭☀️"
     while True:
-        # Get from files
-        frases = get_file('frases.txt')
-        arrobas = get_file('arrobas.txt')
-        tournaments = get_file('tournaments.txt')
-        # Start function
-        games_today = [f"{choice(frases)} {choice(['en', 'para'])} @{choice(arrobas)} {choice(emotes)}\n"]
-        checked_games = []
-        get_online_games.main()
-        games = get_games_from_file.main()
-        for game in games:
-            if (((game['date'].day == datetime.now().day and
-                    any(tournament in game['server'] for tournament in tournaments)) and
-                    len(games_today) != 6)):
-                games_today.append(f"{game['server']} | {game['left']} vs {game['right']}")
-                checked_games.append(game)
-        upload_items(checked_games, 'history.txt')
-        if len(games_today) > 1:
-            tweet = '\n'.join(games_today)
+        games_time = get_sleep_time(day=datetime.now().day + 1, hour=1)
+        print(f'Esperando tiempo para CREAR el tweet... {games_time} segundos!\n')
+
+        tweet = make_tweet_main(datetime.now().day)  # Crea el tweet (No lo sube)
+        
+        send_telegram_main(f'TWEET CREADO EXITOSAMENTE!\n\n{tweet}\n\nESPERANDO TIEMPO: {games_time}!' if tweet else f'TWEET CREADO EXITOSAMENTE PERO NO HAY JUEGOS PARA HOY :(', 
+                           telegram_codes['bot_token'], telegram_codes['chat_id'])
+
+        tweet_time = get_sleep_time(day=datetime.now().day, hour=20)
+        print(f'\nEsperando tiempo para SUBIR el tweet... {tweet_time} segundos!')
+        # sleep(tweet_time)
+
+        if tweet:
             print('\n' + tweet + '\n')
-            response = oauth.post(
-                "https://api.twitter.com/2/tweets",
-                json={'text': tweet},
-            )
-            if response.status_code != 201:
-                raise Exception("Request returned an error: {} {}".format(response.status_code, response.text))
-            else:
-                print("Response code: ", response.status_code)
-                print("Tweet hecho con exito")
+            send_telegram_main(f'TWEET SUBIDO EXITOSAMENTE!', telegram_codes['bot_token'], telegram_codes['chat_id'])
         else:
             print('No hay juegos hoy :(')
-        input('Enter para reiniciar... ')
+        break
 
 
 if __name__ == '__main__':
@@ -58,3 +41,5 @@ if __name__ == '__main__':
         main()
     except KeyboardInterrupt:
         print('\nAdios!')
+    except Exception as e:
+        send_telegram_main()

@@ -2,9 +2,17 @@ from pickle import dump, load
 from os import path
 
 def get_code(user_path: str):
-    if path.exists(user_path):
-        with open(user_path, 'rb') as f:
-            return load(f)
+    while True:
+        if path.exists(user_path):
+            with open(user_path, 'rb') as f:
+                return load(f)
+        else:
+            print('No existe las keys de telegram!')
+            export_code(
+                'telegram_api.pkl', 
+                input('Bot_Token: '),
+                input('Chat_ID: ')
+            )
 
 
 def export_code(user_path: str, bot_token: str, chat_id: str):

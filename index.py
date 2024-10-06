@@ -8,11 +8,12 @@ from get_times import get_sleep_time
 from send_getcode_exportcode import get_code
 from send_noti_telegrambot import send_telegram_main
 
+telegram_codes = get_code('telegram_api.pkl') # {'bot_token': bot_token, 'chat_id': chat_id}
+
 
 def main():
     system('cls' if 'windows' in platform().lower() else 'clear')
     oauth = get_api_main()
-    telegram_codes = get_code('telegram_api.pkl') # {'bot_token': bot_token, 'chat_id': chat_id}
     while True:
         games_time = get_sleep_time(day=datetime.now().day+1, hour=1)
         print(f'Esperando tiempo para CREAR el tweet... {games_time} segundos!\n')
@@ -20,7 +21,8 @@ def main():
 
         tweet = make_tweet_main(datetime.now().day)
         print(f'TWEET CREADO\n{tweet}\n')
-        send_telegram_main(f'TWEET CREADO\n{tweet}', telegram_codes['bot_token'], telegram_codes['chat_id'])
+        send_telegram_main(f'TWEET CREADO EXITOSAMENTE!\n\n{tweet}\n\nESPERANDO TIEMPO: {games_time}' if tweet else 'NO HAY PARTIDOS EL DIA DE HOY :(', 
+                           telegram_codes['bot_token'], telegram_codes['chat_id'])
 
         tweet_time = get_sleep_time(day=datetime.now().day, hour=11)
         print(f'\nEsperando tiempo para SUBIR el tweet... {tweet_time} segundos!')
@@ -48,3 +50,6 @@ if __name__ == '__main__':
         main()
     except KeyboardInterrupt:
         print('\nAdios!')
+    except Exception as e:
+        print('Ah ocurrido un error en el script!')
+        send_telegram_main(f'Ah ocurrido un error en el script!\n\n{e}', telegram_codes['bot_token'], telegram_codes['chat_id'])

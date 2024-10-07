@@ -18,6 +18,8 @@ def main():
     while True:
         games_time = get_sleep_time(day=datetime.now().day+1, hour=1)
         print(f'Esperando tiempo para CREAR el tweet... Se CREARA el {datetime.now() + timedelta(0, games_time)}!\n')
+        send_telegram_main(f'Esperando reinicio para la CREACION del tweet... Se CREARA el {datetime.now() + timedelta(0, games_time)}', 
+        telegram_codes['bot_token'], telegram_codes['chat_id'])
         sleep(games_time)
 
         tweet = make_tweet_main(datetime.now().day)

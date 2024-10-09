@@ -41,11 +41,11 @@ def main():
 
 
 if __name__ == '__main__':
+    from datetime import datetime
     games = main()
     tournaments = get_file('tournaments.txt')
-    print(tournaments)
     for game in games:
-        if game['date'].day == 23:
+        if game['date'].day == datetime.now().day:
             for tournament in tournaments:
                 if tournament in game['server']:
                     print(game)

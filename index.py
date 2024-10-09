@@ -18,18 +18,18 @@ def main():
     while True:
         games_time = get_sleep_time(day=datetime.now().day+1, hour=1)
         print(f'Esperando tiempo para CREAR el tweet... Se CREARA el {datetime.now() + timedelta(0, games_time)}!\n')
-        send_telegram_main(f'Esperando reinicio para la CREACION del tweet... Se CREARA el {datetime.now() + timedelta(0, games_time)}', 
+        send_telegram_main(f'Esperando tiempo para la CREACION del tweet... Se CREARA el {datetime.now() + timedelta(0, games_time)}', 
         telegram_codes['bot_token'], telegram_codes['chat_id'])
         sleep(games_time)
 
         tweet = make_tweet_main(datetime.now().day)
         print(f'TWEET CREADO\n{tweet}\n')
-        send_telegram_main(f'TWEET CREADO EXITOSAMENTE!\n\n{tweet}' if tweet else 'NO HAY PARTIDOS EL DIA DE HOY :(', 
-                           telegram_codes['bot_token'], telegram_codes['chat_id'])
 
         tweet_time = get_sleep_time(day=datetime.now().day, hour=11)
         print(f'\nEsperando tiempo para SUBIR el tweet... Se SUBIRA el {datetime.now() + timedelta(0, tweet_time)}!')
         sleep(tweet_time)
+
+        send_telegram_main(f'TWEET CREADO EXITOSAMENTE!\n\n{tweet}\n\nSe SUBIRA el {datetime.now() + timedelta(0, tweet_time)}!' if tweet else 'NO HAY PARTIDOS EL DIA DE HOY :(', telegram_codes['bot_token'], telegram_codes['chat_id'])
 
         if tweet:
             response = oauth.post(
@@ -54,4 +54,4 @@ if __name__ == '__main__':
         print('\nAdios!')
     except Exception as e:
         print('Ah ocurrido un error en el script!')
-        send_telegram_main(f'Ah ocurrido un error en el script!\n\n{e}', telegram_codes['bot_token'], telegram_codes['chat_id'])
+        send_telegram_main(f'Ah ocurrido un error en el script!\n\nERROR:\n{e}', telegram_codes['bot_token'], telegram_codes['chat_id'])

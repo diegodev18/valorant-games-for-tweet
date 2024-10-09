@@ -16,20 +16,20 @@ def main():
     send_telegram_main('SCRIPT \"VALORANG_GAMES_FOR_TWEET\" INICIADO CON EXITO!', telegram_codes['bot_token'], telegram_codes['chat_id'])
     system('cls' if 'windows' in platform().lower() else 'clear')
     while True:
-        games_time = get_sleep_time(day=datetime.now().day+1, hour=1)
-        print(f'Esperando tiempo para CREAR el tweet... Se CREARA el {datetime.now() + timedelta(0, games_time)}!\n')
-        send_telegram_main(f'Esperando tiempo para la CREACION del tweet... Se CREARA el {datetime.now() + timedelta(0, games_time)}', 
-        telegram_codes['bot_token'], telegram_codes['chat_id'])
+        games_time = get_sleep_time(day=datetime.now().day + 1, hour=1)
+        msg = f'Esperando tiempo para CREAR el tweet... Se CREARA el {datetime.now() + timedelta(0, games_time)}!\n' if games_time else 'NO HAY PARTIDOS EL DIA DE HOY :('
+        print(msg)
+        send_telegram_main(msg, telegram_codes['bot_token'], telegram_codes['chat_id'])
         sleep(games_time)
 
         tweet = make_tweet_main(datetime.now().day)
         print(f'TWEET CREADO\n{tweet}\n')
 
         tweet_time = get_sleep_time(day=datetime.now().day, hour=11)
-        print(f'\nEsperando tiempo para SUBIR el tweet... Se SUBIRA el {datetime.now() + timedelta(0, tweet_time)}!')
+        msg = f'\nEsperando tiempo para SUBIR el tweet... Se SUBIRA el {datetime.now() + timedelta(0, tweet_time)}!\n' if tweet else 'NO HAY PARTIDOS EL DIA DE HOY :('
+        print(msg)
+        send_telegram_main(f'TWEET CREADO EXITOSAMENTE\n\n{tweet}\n{msg}', telegram_codes['bot_token'], telegram_codes['chat_id'])
         sleep(tweet_time)
-
-        send_telegram_main(f'TWEET CREADO EXITOSAMENTE!\n\n{tweet}\n\nSe SUBIRA el {datetime.now() + timedelta(0, tweet_time)}!' if tweet else 'NO HAY PARTIDOS EL DIA DE HOY :(', telegram_codes['bot_token'], telegram_codes['chat_id'])
 
         if tweet:
             response = oauth.post(
@@ -53,5 +53,5 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         print('\nAdios!')
     except Exception as e:
-        print('Ah ocurrido un error en el script!')
+        print(f'Ah ocurrido un error en el script!\n{e}')
         send_telegram_main(f'Ah ocurrido un error en el script!\n\nERROR:\n{e}', telegram_codes['bot_token'], telegram_codes['chat_id'])

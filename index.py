@@ -35,14 +35,16 @@ def main():
             response = oauth.post(
                 "https://api.twitter.com/2/tweets",
                 json={'text': tweet},
+                timeout=30
             )
             if response.status_code != 201:
                 raise Exception("Request returned an error: {} {}".format(response.status_code, response.text))
             else:
                 print("Response code: ", response.status_code)
                 print("Tweet hecho con exito")
+                sleep(5)
                 send_telegram_main('TWEET PUBLICADO EXITOSAMENTE', telegram_codes['bot_token'], telegram_codes['chat_id'])
-
+                sleep(15)
         else:
             print('No hay juegos hoy :(')
 
@@ -53,5 +55,6 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         print('\nAdios!')
     except Exception as e:
-        print(f'Ah ocurrido un error en el script!\n{e}')
-        send_telegram_main(f'Ah ocurrido un error en el script!\n\nERROR:\n{e}', telegram_codes['bot_token'], telegram_codes['chat_id'])
+        print(f'Ah ocurrido un error en el script!\n{e.with_traceback()}')
+        send_telegram_main(f'Ah ocurrido un error en el script!\n\nERROR:\n{e.with_traceback()}', 
+                           telegram_codes['bot_token'], telegram_codes['chat_id'])

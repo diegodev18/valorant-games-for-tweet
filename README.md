@@ -1,6 +1,6 @@
 # Valorant Games for Tweet
 
-Este es un script basico que te permite obtener los juegos de valorant competitivo y publicarlos de manera automatica a twitter.
+> Este es un script basico que te permite obtener los juegos de valorant competitivo y publicarlos de manera automatica a twitter.
 
 ## Instalacion y configuracion
 

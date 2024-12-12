@@ -1,5 +1,6 @@
 keys.pkl
-__pycache__
+__pycache__/
+venv/
 games.pkl
 history.txt
 .idea/

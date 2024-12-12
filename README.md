@@ -4,35 +4,35 @@ Este es un script basico que te permite obtener los juegos de valorant competiti
 
 ## Instalacion y configuracion
 
-1. Clona el repositorio
+### 1. Clona el repositorio
 ```bash	
 git clone https://github.com/diego-dev018/ValorantGamesForTweet
 ```
 
-2. Entra en el repositorio
+### 2. Entra en el repositorio
 ```bash
 cd ValorantGamesForTweet
 ```
 
-3. Obten tus credenciales de twitter en [developer.twitter.com](https://developer.twitter.com/)
+### 3. Obten tus credenciales de twitter en [developer.twitter.com](https://developer.twitter.com/)
 
-4. Selecciona los torneos que quieres publicar en X
+### 4. Selecciona los torneos que quieres publicar en X
 
-- Abre el archivo `tournament.txt`
-- Escribe el nombre del torneo que quieres publicar
+#### - Abre el archivo `tournament.txt`
+#### - Escribe el nombre del torneo que quieres publicar
 
-5. Inicia el script
+### 5. Inicia el script
 
-### Windows
+#### Windows
 ```cmd
 py init.py
 ```
 
-### Linux
+#### Linux
 ```bash
 python3 init.py
 ```
 
 ## Uso
 
-El script se ejecutara a la hora que asignes en el script, y subira un tweet a tu cuenta de X con los juegos de valorant competitivo que selecciones.
+> El script se ejecutara a la hora que asignes en el script, y subira un tweet a tu cuenta de X con los juegos de valorant competitivo que selecciones.

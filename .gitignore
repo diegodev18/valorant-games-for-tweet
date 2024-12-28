@@ -1,12 +1,7 @@
-keys.pkl
 __pycache__/
 venv/
+.env
 games.pkl
 history.txt
 .idea/
-telegram_api.pkl
 test.py
-test_insta_tweet.py
-telegram_api.json
-twitter_keys.json
-.env

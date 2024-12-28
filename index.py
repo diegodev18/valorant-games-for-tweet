@@ -8,24 +8,18 @@ from get_times import get_sleep_time
 from send_getcode_exportcode import get_code
 from send_noti_telegrambot import send_telegram_main
 
-if 'telegram_api.json' in listdir():    
-    from json import load
-    with open('telegram_api.json', 'r') as f:
-        telegram_codes = load(f)
-    f.close()
-else:
-    telegram_codes = get_code('telegram_api.pkl') # {'bot_token': bot_token, 'chat_id': chat_id}
+telegram_codes = get_code() # {'bot_token': bot_token, 'chat_id': chat_id}
 
 
 def main():
     oauth = get_api_main()
-    send_telegram_main('SCRIPT \"VALORANG_GAMES_FOR_TWEET\" INICIADO CON EXITO!', telegram_codes['bot_token'], telegram_codes['chat_id'])
+    send_telegram_main('SCRIPT \"VALORANG_GAMES_FOR_TWEET\" INICIADO CON EXITO!')
     system('cls' if 'windows' in platform().lower() else 'clear')
     while True:
         games_time = get_sleep_time(day=datetime.now().day + 1, hour=1)
         msg = f'Esperando tiempo para CREAR el tweet... Se CREARA el {datetime.now() + timedelta(0, games_time)}!\n' if games_time else 'NO HAY PARTIDOS EL DIA DE HOY :('
         print(msg)
-        send_telegram_main(msg, telegram_codes['bot_token'], telegram_codes['chat_id'])
+        send_telegram_main(msg)
         sleep(games_time)
 
         tweet = make_tweet_main(datetime.now().day)
@@ -34,7 +28,7 @@ def main():
         tweet_time = get_sleep_time(day=datetime.now().day, hour=11)
         msg = f'\nEsperando tiempo para SUBIR el tweet... Se SUBIRA el {datetime.now() + timedelta(0, tweet_time)}!\n' if tweet else 'NO HAY PARTIDOS EL DIA DE HOY :('
         print(msg)
-        send_telegram_main(f'TWEET CREADO EXITOSAMENTE\n\n{tweet}\n{msg}', telegram_codes['bot_token'], telegram_codes['chat_id'])
+        send_telegram_main(f'TWEET CREADO EXITOSAMENTE\n\n{tweet}\n{msg}')
         sleep(tweet_time)
 
         if tweet:
@@ -49,7 +43,7 @@ def main():
                 print("Response code: ", response.status_code)
                 print("Tweet hecho con exito")
                 sleep(5)
-                send_telegram_main('TWEET PUBLICADO EXITOSAMENTE', telegram_codes['bot_token'], telegram_codes['chat_id'])
+                send_telegram_main('TWEET PUBLICADO EXITOSAMENTE')
                 sleep(15)
         else:
             print('No hay juegos hoy :(')
@@ -60,9 +54,7 @@ if __name__ == '__main__':
         main()
     except KeyboardInterrupt:
         print('\nAdios!')
-        send_telegram_main('SCRIPT \"VALORANG_GAMES_FOR_TWEET\" FINALIZADO CON EXITO!',
-                           telegram_codes['bot_token'], telegram_codes['chat_id'])
+        send_telegram_main('SCRIPT \"VALORANG_GAMES_FOR_TWEET\" FINALIZADO CON EXITO!')
     except Exception as e:
         print(f'Ah ocurrido un error en el script!\n{e.with_traceback()}')
-        send_telegram_main(f'Ah ocurrido un error en el script!\n\nERROR:\n{e.with_traceback()}', 
-                           telegram_codes['bot_token'], telegram_codes['chat_id'])
+        send_telegram_main(f'Ah ocurrido un error en el script!\n\nERROR:\n{e.with_traceback()}')

@@ -3,3 +3,4 @@ requests
 beautifulsoup4
 requests_oauthlib
 python-telegram-bot
+dotenv

@@ -1,17 +1,17 @@
 from requests_oauthlib import OAuth1Session
 from time import sleep
 from os import path
+from keys import get as get_keys
 import requests
-import keys
 
 
 def get_api_main():
-    consumer_key, consumer_secret, access_token, access_token_secret = keys.main()
+    TWITTER_KEY, TWITTER_SECRET, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET = get_keys()
     
-    if not access_token or not access_token_secret:
+    if not TWITTER_ACCESS_TOKEN or not TWITTER_ACCESS_TOKEN_SECRET:
         # Get request token
         request_token_url = "https://api.twitter.com/oauth/request_token?oauth_callback=oob&x_auth_access_type=write"
-        oauth = OAuth1Session(consumer_key, client_secret=consumer_secret)
+        oauth = OAuth1Session(TWITTER_KEY, client_secret=TWITTER_SECRET)
 
         while True:
             try:
@@ -19,7 +19,7 @@ def get_api_main():
                 break
             except ValueError:
                 print(
-                    "There may have been an issue with the consumer_key or consumer_secret you entered."
+                    "There may have been an issue with the TWITTER_KEY or TWITTER_SECRET you entered."
                 )
             except requests.exceptions.ConnectionError:
                 print('Error de conexion\nEsperando internet\n')
@@ -39,23 +39,23 @@ def get_api_main():
         # Get the access token
         access_token_url = "https://api.twitter.com/oauth/access_token"
         oauth = OAuth1Session(
-            consumer_key,
-            client_secret=consumer_secret,
+            TWITTER_KEY,
+            client_secret=TWITTER_SECRET,
             resource_owner_key=resource_owner_key,
             resource_owner_secret=resource_owner_secret,
             verifier=verifier,
         )
         oauth_tokens = oauth.fetch_access_token(access_token_url)
 
-        access_token = oauth_tokens["oauth_token"]
-        access_token_secret = oauth_tokens["oauth_token_secret"]
+        TWITTER_ACCESS_TOKEN = oauth_tokens["oauth_token"]
+        TWITTER_ACCESS_TOKEN_SECRET = oauth_tokens["oauth_token_secret"]
 
     # Make the request
     oauth = OAuth1Session(
-        consumer_key,
-        client_secret=consumer_secret,
-        resource_owner_key=access_token,
-        resource_owner_secret=access_token_secret,
+        TWITTER_KEY,
+        client_secret=TWITTER_SECRET,
+        resource_owner_key=TWITTER_ACCESS_TOKEN,
+        resource_owner_secret=TWITTER_ACCESS_TOKEN_SECRET,
     )
 
     return oauth

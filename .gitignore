@@ -9,3 +9,4 @@ test.py
 test_insta_tweet.py
 telegram_api.json
 twitter_keys.json
+.env

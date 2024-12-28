@@ -33,7 +33,7 @@ py init.py
 python3 init.py
 ```
 
-### Docker
+### o con un contenedor de Docker
 > El dockerfile ya esta configurado para ejecutar el script, solo necesitas construir la imagen y ejecutar el contenedor, sigue las instrucciones.
 
 #### 1. Construye la imagen

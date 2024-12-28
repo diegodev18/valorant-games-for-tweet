@@ -1,6 +1,6 @@
 from time import sleep
 from datetime import datetime, timedelta
-from os import system
+from os import system, listdir
 from platform import platform
 from get_twitter_api import get_api_main
 from make_tweet import make_tweet_main
@@ -8,7 +8,13 @@ from get_times import get_sleep_time
 from send_getcode_exportcode import get_code
 from send_noti_telegrambot import send_telegram_main
 
-telegram_codes = get_code('telegram_api.pkl') # {'bot_token': bot_token, 'chat_id': chat_id}
+if 'telegram_api.json' in listdir():    
+    from json import load
+    with open('telegram_api.json', 'r') as f:
+        telegram_codes = load(f)
+    f.close()
+else:
+    telegram_codes = get_code('telegram_api.pkl') # {'bot_token': bot_token, 'chat_id': chat_id}
 
 
 def main():

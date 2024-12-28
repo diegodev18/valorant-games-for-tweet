@@ -60,6 +60,8 @@ if __name__ == '__main__':
         main()
     except KeyboardInterrupt:
         print('\nAdios!')
+        send_telegram_main('SCRIPT \"VALORANG_GAMES_FOR_TWEET\" FINALIZADO CON EXITO!',
+                           telegram_codes['bot_token'], telegram_codes['chat_id'])
     except Exception as e:
         print(f'Ah ocurrido un error en el script!\n{e.with_traceback()}')
         send_telegram_main(f'Ah ocurrido un error en el script!\n\nERROR:\n{e.with_traceback()}', 

@@ -33,6 +33,19 @@ py init.py
 python3 init.py
 ```
 
+### Docker
+> El dockerfile ya esta configurado para ejecutar el script, solo necesitas construir la imagen y ejecutar el contenedor, sigue las instrucciones.
+
+#### 1. Construye la imagen
+```bash
+docker build -t valorant-games-for-tweet .
+```
+
+#### 2. Ejecuta el contenedor
+```bash
+docker run valorant-games-for-tweet
+```
+
 ## Uso
 
 > El script se ejecutara a la hora que asignes en el script, y subira un tweet a tu cuenta de X con los juegos de valorant competitivo que selecciones.

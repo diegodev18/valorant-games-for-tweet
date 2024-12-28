@@ -3,10 +3,10 @@ from json import load as jload
 import pickle as pkl
 
 
-def dump(key, secret):
+def dump(key, secret, access_token = None, access_token_secret = None):
     with open('twitter_keys.pkl', 'wb') as f:
         pkl.dump({'key': key, 'secret': secret}, f)
-    return {'key': key, 'secret': secret}
+    return {'key': key, 'secret': secret, 'access_token': access_token, 'access_token_secret': access_token_secret}
 
 
 def load():
@@ -18,12 +18,12 @@ def load():
     except FileNotFoundError:
         print('¡La clave no existe!')
         print('Crear clave: ')
-        return dump(input('Twitter Key: '), input('Twitter Secret: '))
+        return dump(input('Api Key: '), input('Secret: '), input('Access Token: '), input('Access token secret: '))
 
 
 def main():
     keys = load()
-    return keys['key'], keys['secret']
+    return keys['key'], keys['secret'], keys['access_token'], keys['access_token_secret']
 
 
 if __name__ == '__main__':
@@ -31,7 +31,7 @@ if __name__ == '__main__':
     if ans in ['1', 1]:
         print(load())
     elif ans in ['2', 2]:
-        dump(input('Twitter Key: '), input('Twitter Secret: '))
+        dump(input('Twitter Key: '), input('Twitter Secret: '), input('Access Token: '), input('Access Token Secret: '))
     else:
         print('Opcion invalida')
 

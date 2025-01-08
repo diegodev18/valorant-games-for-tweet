@@ -1,4 +1,4 @@
-![214_1x_shots_so](https://github.com/user-attachments/assets/4fda2317-a3ce-4e1b-a92b-58131809fb6b)
+![277_1x_shots_so](https://github.com/user-attachments/assets/a6bb05cd-e552-4887-8abc-12174f2cd8fa)
 
 # Valorant Games for Tweet
 

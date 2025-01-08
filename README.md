@@ -1,3 +1,5 @@
+![214_1x_shots_so](https://github.com/user-attachments/assets/4fda2317-a3ce-4e1b-a92b-58131809fb6b)
+
 # Valorant Games for Tweet
 
 > Este es un script basico que te permite obtener los juegos de valorant competitivo y publicarlos de manera automatica a twitter.

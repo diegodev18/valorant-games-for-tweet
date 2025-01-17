@@ -1,6 +1,4 @@
 VCT
-VCL
 Champions
 VCT:
-GC
 Ascension

@@ -16,7 +16,7 @@ def main():
     send_telegram_main('SCRIPT \"VALORANG_GAMES_FOR_TWEET\" INICIADO CON EXITO!')
     system('cls' if 'windows' in platform().lower() else 'clear')
     while True:
-        games_time = get_sleep_time(day=datetime.now().day + 1, hour=1)
+        games_time = get_sleep_time(day=datetime.now().day + 1, hour=8)
         msg = f'Esperando tiempo para CREAR el tweet... Se CREARA el {datetime.now() + timedelta(0, games_time)}!\n' if games_time else 'NO HAY PARTIDOS EL DIA DE HOY :('
         print(msg)
         send_telegram_main(msg)
@@ -25,7 +25,7 @@ def main():
         tweet = make_tweet_main(datetime.now().day)
         print(f'TWEET CREADO\n{tweet}\n')
 
-        tweet_time = get_sleep_time(day=datetime.now().day, hour=11)
+        tweet_time = get_sleep_time(day=datetime.now().day, hour=18)
         msg = f'\nEsperando tiempo para SUBIR el tweet... Se SUBIRA el {datetime.now() + timedelta(0, tweet_time)}!\n' if tweet else 'NO HAY PARTIDOS EL DIA DE HOY :('
         print(msg)
         send_telegram_main(f'TWEET CREADO EXITOSAMENTE\n\n{tweet}\n{msg}')

@@ -1,7 +1,6 @@
 from time import sleep
 from datetime import datetime, timedelta
 from os import system
-from sys import exit
 from platform import platform
 from get_twitter_api import get_api_main
 from make_tweet import make_tweet_main
@@ -51,12 +50,14 @@ def main():
 
 
 if __name__ == '__main__':
-    try:
-        main()
-    except KeyboardInterrupt:
-        print('\nAdios!')
-        send_telegram_main('SCRIPT \"VALORANG_GAMES_FOR_TWEET\" FINALIZADO CON EXITO!')
-    except Exception as e:
-        print(f'Ah ocurrido un error en el script!\n{e.with_traceback}')
-        send_telegram_main(f'Ah ocurrido un error en el script!\n\nERROR:\n{e.with_traceback}')
-        exit()
+    while True:
+        try:
+            main()
+        except KeyboardInterrupt:
+            print('\nAdios!')
+            send_telegram_main('SCRIPT \"VALORANG_GAMES_FOR_TWEET\" FINALIZADO CON EXITO!')
+        except Exception as error:
+            error_msg = error.with_traceback(None)
+            print(f'Ah ocurrido un error en el script!\n{error_msg}')
+            send_telegram_main(f'Ah ocurrido un error en el script!\n\nERROR:\n{error_msg}')
+            sleep(24 * 60 * 60)

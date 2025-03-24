@@ -1,6 +1,6 @@
 from time import sleep
 from datetime import datetime, timedelta
-from os import system, listdir
+from os import system
 from sys import exit
 from platform import platform
 from get_twitter_api import get_api_main
@@ -57,6 +57,6 @@ if __name__ == '__main__':
         print('\nAdios!')
         send_telegram_main('SCRIPT \"VALORANG_GAMES_FOR_TWEET\" FINALIZADO CON EXITO!')
     except Exception as e:
-        print(f'Ah ocurrido un error en el script!\n{e.with_traceback()}')
-        send_telegram_main(f'Ah ocurrido un error en el script!\n\nERROR:\n{e.with_traceback()}')
+        print(f'Ah ocurrido un error en el script!\n{e.with_traceback}')
+        send_telegram_main(f'Ah ocurrido un error en el script!\n\nERROR:\n{e.with_traceback}')
         exit()

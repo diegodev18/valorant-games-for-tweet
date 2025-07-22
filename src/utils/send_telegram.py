@@ -2,7 +2,6 @@ import asyncio
 from sys import platform
 from telegram import Bot
 from get_env import get_env
-from send_getcode_exportcode import get_code
 
 (
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
@@ -24,7 +23,6 @@ def send_message(message: str):
 
 
 if __name__ == "__main__":
-    telegram_codes = get_code()
     try:
         send_message("TWEET PUBLICADO EXITOSAMENTE")
     except Exception as e:

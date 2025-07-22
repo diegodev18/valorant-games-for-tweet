@@ -1,3 +1,4 @@
+from src.utils.get_env import get_env
 from requests import get
 
 
@@ -16,4 +17,5 @@ def get_chatid(bot_token: str, name=None):
 
 
 if __name__ == "__main__":
-    print(get_chatid("a"))
+    bot_token: str = get_env("TELEGRAM_BOT_TOKEN")
+    print(get_chatid(bot_token))

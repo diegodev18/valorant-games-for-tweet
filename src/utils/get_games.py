@@ -1,6 +1,6 @@
 import pickle
 import requests
-from re import findall
+from re import findall, search
 from bs4 import BeautifulSoup
 from get_dates import get_dates
 
@@ -13,19 +13,19 @@ def scrape_games():
     response = requests.get(url).text
     soup = BeautifulSoup(response, "html.parser")
     games_found = soup.find_all(
-        class_="wikitable wikitable-striped infobox_matches_content"
+        class_="match-info"
     )
     n = 0
     for game in games_found:
-        teams = findall(r'data-highlightingclass="([^"]+)"', str(game))
-        times = findall(r'">([^"]+) <a', str(game))
-        server = game.find_all(class_="tournament-text-flex")[0]
-        if len(teams) > 1:
+        teams = findall(r'<a href="/valorant/[^"]+" title="[^"]+">([A-Z]{2,5})</a>', str(game))
+        times = findall(r'>([A-Za-z]+\s\d{1,2},\s\d{4}\s-\s\d{2}:\d{2})\s*<abbr', str(game))
+        server = search(r'<span class="tournament-name"><a [^>]+>([^<]+)</a>', str(game))
+        if len(teams) > 1 and times and server:
             list_teams = {
                 "left": teams[0],
                 "right": teams[1],
                 "date": times[0],
-                "server": findall(r'">([^"]+)</a', str(server))[0],
+                "server": server.group(1),
             }
             games.append(list_teams)
             n += 1

@@ -7,7 +7,7 @@ from src.utils import (
     x_auth,
     make_tweet_main,
     get_code,
-    send_telegram_main
+    send_message
 )
 
 telegram_codes = get_code()  # {'bot_token': bot_token, 'chat_id': chat_id}
@@ -15,7 +15,7 @@ telegram_codes = get_code()  # {'bot_token': bot_token, 'chat_id': chat_id}
 
 def main():
     oauth = x_auth()
-    send_telegram_main('SCRIPT "VALORANG_GAMES_FOR_TWEET" INICIADO CON EXITO!')
+    send_message('SCRIPT "VALORANG_GAMES_FOR_TWEET" INICIADO CON EXITO!')
     system("cls" if "windows" in platform().lower() else "clear")
     while True:
         games_time = get_sleep_time(day=datetime.now().day + 1, hour=8)
@@ -25,7 +25,7 @@ def main():
             else "NO HAY PARTIDOS EL DIA DE HOY :("
         )
         print(msg)
-        send_telegram_main(msg)
+        send_message(msg)
         sleep(games_time)
 
         tweet = make_tweet_main(datetime.now().day)
@@ -38,7 +38,7 @@ def main():
             else "NO HAY PARTIDOS EL DIA DE HOY :("
         )
         print(msg)
-        send_telegram_main(f"TWEET CREADO EXITOSAMENTE\n\n{tweet}\n{msg}")
+        send_message(f"TWEET CREADO EXITOSAMENTE\n\n{tweet}\n{msg}")
         sleep(tweet_time)
 
         if tweet:
@@ -55,7 +55,7 @@ def main():
                 print("Response code: ", response.status_code)
                 print("Tweet hecho con exito")
                 sleep(5)
-                send_telegram_main("TWEET PUBLICADO EXITOSAMENTE")
+                send_message("TWEET PUBLICADO EXITOSAMENTE")
                 sleep(15)
         else:
             print("No hay juegos hoy :(")
@@ -67,13 +67,13 @@ if __name__ == "__main__":
             main()
         except KeyboardInterrupt:
             print("\nAdios!")
-            send_telegram_main(
+            send_message(
                 'SCRIPT "VALORANG_GAMES_FOR_TWEET" FINALIZADO CON EXITO!'
             )
         except Exception as error:
             error_msg = error.with_traceback(None)
             print(f"Ah ocurrido un error en el script!\n{error_msg}")
-            send_telegram_main(
+            send_message(
                 f"Ah ocurrido un error en el script!\n\nERROR:\n{error_msg}"
             )
             sleep(24 * 60 * 60)

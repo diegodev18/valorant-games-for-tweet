@@ -1,7 +1,7 @@
 from random import choice
 
 import get_online_games
-from get_files import get_file
+from get_data import get_data
 from upload_item_to_write import upload_items
 
 
@@ -9,9 +9,9 @@ def make_tweet_main(day):
     emotes = "⌚🥵🤩🪐🍫🎬🤟🤯👏🔥🚀💣🎇🔫☣️☕🌭☀️"
     # Get from files
     teams_title_limit = 15  # Limite de caracteres en el nombre del equipo a jugar
-    frases = get_file("frases.txt")
-    arrobas = get_file("arrobas.txt")
-    tournaments = get_file("tournaments.txt")
+    frases = get_data("phrases")
+    arrobas = get_data("at_signs")
+    tournaments = get_data("tournaments")
     # Start function
     games_today = [
         f"{choice(frases)} {choice(['en', 'para'])} @{choice(arrobas)} {choice(emotes)}\n"

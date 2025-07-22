@@ -5,10 +5,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def get_env(key, error = False) -> str | None:
-    if key in environ:
-        return environ.get(key)
-    elif error:
-        raise KeyError(f"Key {key} no encontrada en las variables de entorno :(")
-    else:
-        return None
+def get_env(key) -> str:
+    env_value = environ.get(key)
+    if env_value:
+        return env_value
+    raise KeyError(f"Key \'{key}\' not found in environment variables")

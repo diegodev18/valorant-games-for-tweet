@@ -1,8 +1,10 @@
-__pycache__/
 venv/
+__pycache__/
+.idea/
+.ruff_cache/
+.ropeproject/
+
 .env
 games.pkl
 history.txt
-.idea/
 test.py
-.ropeproject/

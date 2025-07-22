@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def get(key, error=False) -> str:
+def get_env(key, error = False) -> str | None:
     if key in environ:
         return environ.get(key)
     elif error:

@@ -1,4 +1,4 @@
-from os import system
+from os import system, path
 from platform import platform
 from subprocess import DEVNULL, run
 from sys import exit
@@ -18,9 +18,9 @@ def init_project():
         print("Iniciando entorno virtual...")
         run(
             (
-                "venv\\Scripts\\activate.bat"
+                path.join("venv", "Scripts", "activate.bat")
                 if "windows" in the_platform
-                else "source venv/bin/activate"
+                else f"source {path.join("venv", "bin", "activate")}"
             ),
             stdout=DEVNULL,
             stderr=DEVNULL,

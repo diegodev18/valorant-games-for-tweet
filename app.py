@@ -4,7 +4,7 @@ from platform import platform
 from time import sleep
 from src.utils import (
     get_sleep_time,
-    get_api_main,
+    x_auth,
     make_tweet_main,
     get_code,
     send_telegram_main
@@ -14,7 +14,7 @@ telegram_codes = get_code()  # {'bot_token': bot_token, 'chat_id': chat_id}
 
 
 def main():
-    oauth = get_api_main()
+    oauth = x_auth()
     send_telegram_main('SCRIPT "VALORANG_GAMES_FOR_TWEET" INICIADO CON EXITO!')
     system("cls" if "windows" in platform().lower() else "clear")
     while True:

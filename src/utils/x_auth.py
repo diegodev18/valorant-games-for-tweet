@@ -1,7 +1,7 @@
 import requests
+from src.utils.get_env import get_env
 from time import sleep
 from requests_oauthlib import OAuth1Session
-from get_env import get_env
 
 
 def x_auth() -> OAuth1Session:

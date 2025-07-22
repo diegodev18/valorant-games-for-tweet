@@ -1,7 +1,7 @@
 import asyncio
+from src.utils.get_env import get_env
 from sys import platform
 from telegram import Bot
-from get_env import get_env
 
 (
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())

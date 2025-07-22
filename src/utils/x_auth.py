@@ -1,13 +1,14 @@
 import requests
 from time import sleep
 from requests_oauthlib import OAuth1Session
-from keys import get as get_keys
+from get_env import get_env
 
 
 def x_auth() -> OAuth1Session:
-    TWITTER_KEY, TWITTER_SECRET, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET = (
-        get_keys()
-    )
+    TWITTER_KEY = get_env("TWITTER_KEY")
+    TWITTER_SECRET = get_env("TWITTER_SECRET")
+    TWITTER_ACCESS_TOKEN = get_env("TWITTER_ACCESS_TOKEN")
+    TWITTER_ACCESS_TOKEN_SECRET = get_env("TWITTER_ACCESS_TOKEN_SECRET")
 
     if not TWITTER_ACCESS_TOKEN or not TWITTER_ACCESS_TOKEN_SECRET:
         request_token_url = "https://api.twitter.com/oauth/request_token?oauth_callback=oob&x_auth_access_type=write"

@@ -1,6 +1,5 @@
 from random import choice
-
-import get_online_games
+from get_games import get_games
 from get_data import get_data
 from upload_item_to_write import upload_items
 
@@ -17,7 +16,7 @@ def make_tweet_main(day):
         f"{choice(phrases)} {choice(['en', 'para'])} @{choice(at_signs)} {choice(emotes)}\n"
     ]
     checked_games = []
-    games = get_online_games.main()
+    games = get_games()
     for game in games:
         if (
             game["date"].day == day

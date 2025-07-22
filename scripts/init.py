@@ -32,7 +32,7 @@ def init_project():
         for line in f.readlines():
             print(f'Instalado: {line.split('\n')[0]}... ', end="")
             run(f"pip install {line}", stdout=DEVNULL, stderr=DEVNULL)
-            print(f"[OK!]")
+            print("[OK!]")
     f.close()
     print("Instalacion de dependencias terminado!\n")
 

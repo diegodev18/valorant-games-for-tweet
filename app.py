@@ -6,12 +6,8 @@ from src.utils import (
     get_sleep_time,
     x_auth,
     make_tweet_main,
-    get_code,
     send_message
 )
-
-telegram_codes = get_code()  # {'bot_token': bot_token, 'chat_id': chat_id}
-
 
 def main():
     oauth = x_auth()

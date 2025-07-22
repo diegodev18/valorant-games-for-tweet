@@ -3,12 +3,11 @@ from src.utils.get_env import get_env
 from sys import platform
 from telegram import Bot
 
-(
-    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-    if "win" in platform
-    else None
-)
-
+if "win" in platform:
+    try:
+        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+    except Exception:
+        pass
 
 async def send(message: str, bot_token: str, chat_id: str):
     bot = Bot(token=bot_token)

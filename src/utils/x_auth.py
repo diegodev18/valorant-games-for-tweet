@@ -1,15 +1,16 @@
-from requests_oauthlib import OAuth1Session
-from time import sleep
-from os import path
-from keys import get as get_keys
 import requests
+from src.utils.get_env import get_env
+from time import sleep
+from requests_oauthlib import OAuth1Session
 
 
-def get_api_main():
-    TWITTER_KEY, TWITTER_SECRET, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET = get_keys()
-    
+def x_auth() -> OAuth1Session:
+    TWITTER_KEY = get_env("TWITTER_KEY")
+    TWITTER_SECRET = get_env("TWITTER_SECRET")
+    TWITTER_ACCESS_TOKEN = get_env("TWITTER_ACCESS_TOKEN")
+    TWITTER_ACCESS_TOKEN_SECRET = get_env("TWITTER_ACCESS_TOKEN_SECRET")
+
     if not TWITTER_ACCESS_TOKEN or not TWITTER_ACCESS_TOKEN_SECRET:
-        # Get request token
         request_token_url = "https://api.twitter.com/oauth/request_token?oauth_callback=oob&x_auth_access_type=write"
         oauth = OAuth1Session(TWITTER_KEY, client_secret=TWITTER_SECRET)
 
@@ -22,7 +23,7 @@ def get_api_main():
                     "There may have been an issue with the TWITTER_KEY or TWITTER_SECRET you entered."
                 )
             except requests.exceptions.ConnectionError:
-                print('Error de conexion\nEsperando internet\n')
+                print("Error de conexion\nEsperando internet\n")
             sleep(100)
 
         resource_owner_key = fetch_response.get("oauth_token")
@@ -61,6 +62,5 @@ def get_api_main():
     return oauth
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     pass
-

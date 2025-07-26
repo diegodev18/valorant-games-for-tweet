@@ -1,1 +1,6 @@
 venv/
+scripts/
+.ruff_cache/
+.ropeproject/
+
+games.pkl

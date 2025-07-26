@@ -4,3 +4,4 @@ beautifulsoup4
 requests_oauthlib
 python-telegram-bot
 python-dotenv
+flake8

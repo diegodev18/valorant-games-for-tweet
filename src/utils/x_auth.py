@@ -1,16 +1,18 @@
 import requests
-from src.utils.get_env import get_env
+from src.utils.get_env import get_multi_env
 from time import sleep
 from requests_oauthlib import OAuth1Session
+from sys import exit
 
 
 def x_auth() -> OAuth1Session:
-    TWITTER_KEY = get_env("TWITTER_KEY")
-    TWITTER_SECRET = get_env("TWITTER_SECRET")
-    TWITTER_ACCESS_TOKEN = get_env("TWITTER_ACCESS_TOKEN")
-    TWITTER_ACCESS_TOKEN_SECRET = get_env("TWITTER_ACCESS_TOKEN_SECRET")
+    X_KEY, X_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET = get_multi_env("X_KEY", "X_SECRET", "X_ACCESS_TOKEN", "X_ACCESS_TOKEN_SECRET")
 
-    if not TWITTER_ACCESS_TOKEN or not TWITTER_ACCESS_TOKEN_SECRET:
+    if not X_KEY or not X_ACCESS_TOKEN:
+        print("YOU MUST HAVE \"X_KEY\" AND \"X_ACCESS_TOKEN\" IN \".ENV\" FILE")
+        exit(-1)
+
+    if not X_ACCESS_TOKEN or not X_ACCESS_TOKEN_SECRET:
         request_token_url = "https://api.twitter.com/oauth/request_token?oauth_callback=oob&x_auth_access_type=write"
         oauth = OAuth1Session(TWITTER_KEY, client_secret=TWITTER_SECRET)
 
@@ -28,13 +30,13 @@ def x_auth() -> OAuth1Session:
 
         resource_owner_key = fetch_response.get("oauth_token")
         resource_owner_secret = fetch_response.get("oauth_token_secret")
-        print("Got OAuth token: %s" % resource_owner_key)
+        print(f"Got OAuth token: {resource_owner_key}")
 
         # Get authorization
         base_authorization_url = "https://api.twitter.com/oauth/authorize"
         authorization_url = oauth.authorization_url(base_authorization_url)
 
-        print("Please go here and authorize: %s" % authorization_url)
+        print(f"Please go here and authorize: {authorization_url}")
         verifier = input("Paste the PIN here: ")
 
         # Get the access token
@@ -51,6 +53,8 @@ def x_auth() -> OAuth1Session:
         TWITTER_ACCESS_TOKEN = oauth_tokens["oauth_token"]
         TWITTER_ACCESS_TOKEN_SECRET = oauth_tokens["oauth_token_secret"]
 
+        return oauth
+
     # Make the request
     oauth = OAuth1Session(
         TWITTER_KEY,
@@ -63,4 +67,5 @@ def x_auth() -> OAuth1Session:
 
 
 if __name__ == "__main__":
-    pass
+    x_auth()
+

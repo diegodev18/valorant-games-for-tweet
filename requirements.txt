@@ -6,4 +6,4 @@ python-telegram-bot
 python-dotenv
 
 # Next  are only if ur in development environ
-#flake8
+# ruff

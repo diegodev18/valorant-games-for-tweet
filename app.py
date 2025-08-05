@@ -2,12 +2,8 @@ from datetime import datetime, timedelta
 from os import system
 from platform import platform
 from time import sleep
-from src.utils import (
-    get_sleep_time,
-    x_auth,
-    make_tweet_main,
-    send_message
-)
+from src.utils import get_sleep_time, x_auth, make_tweet_main, send_message
+
 
 def main():
     oauth = x_auth()
@@ -63,13 +59,10 @@ if __name__ == "__main__":
             main()
         except KeyboardInterrupt:
             print("\nAdios!")
-            send_message(
-                'SCRIPT "VALORANG_GAMES_FOR_TWEET" FINALIZADO CON EXITO!'
-            )
+            send_message('SCRIPT "VALORANG_GAMES_FOR_TWEET" FINALIZADO CON EXITO!')
+            break
         except Exception as error:
             error_msg = error.with_traceback(None)
             print(f"Ah ocurrido un error en el script!\n{error_msg}")
-            send_message(
-                f"Ah ocurrido un error en el script!\n\nERROR:\n{error_msg}"
-            )
+            send_message(f"Ah ocurrido un error en el script!\n\nERROR:\n{error_msg}")
             sleep(24 * 60 * 60)

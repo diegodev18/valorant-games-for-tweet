@@ -1,0 +1,32 @@
+import asyncio
+from src.utils.get_env import get_env
+from sys import platform
+from telegram import Bot
+
+if "win" in platform:
+    try:
+        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+    except Exception:
+        pass
+
+
+async def send(message: str, bot_token: str, chat_id: str):
+    bot = Bot(token=bot_token)
+    await bot.send_message(chat_id=chat_id, text=message)
+
+
+def send_message(message: str):
+    TELEGRAM_BOT_TOKEN = get_env("TELEGRAM_BOT_TOKEN")
+    TELEGRAM_CHAT_ID = get_env("TELEGRAM_CHAT_ID")
+
+    if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
+        return
+
+    asyncio.run(send(message, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID))
+
+
+if __name__ == "__main__":
+    try:
+        send_message("TWEET PUBLICADO EXITOSAMENTE")
+    except Exception as e:
+        print("Error:", e)

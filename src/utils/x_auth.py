@@ -6,15 +6,17 @@ from sys import exit
 
 
 def x_auth() -> OAuth1Session:
-    X_KEY, X_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET = get_multi_env("X_KEY", "X_SECRET", "X_ACCESS_TOKEN", "X_ACCESS_TOKEN_SECRET")
+    X_KEY, X_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET = get_multi_env(
+        "X_KEY", "X_SECRET", "X_ACCESS_TOKEN", "X_ACCESS_TOKEN_SECRET"
+    )
 
     if not X_KEY or not X_ACCESS_TOKEN:
-        print("YOU MUST HAVE \"X_KEY\" AND \"X_ACCESS_TOKEN\" IN \".ENV\" FILE")
+        print('YOU MUST HAVE "X_KEY" AND "X_ACCESS_TOKEN" IN ".ENV" FILE')
         exit(-1)
 
     if not X_ACCESS_TOKEN or not X_ACCESS_TOKEN_SECRET:
         request_token_url = "https://api.twitter.com/oauth/request_token?oauth_callback=oob&x_auth_access_type=write"
-        oauth = OAuth1Session(TWITTER_KEY, client_secret=TWITTER_SECRET)
+        oauth = OAuth1Session(X_KEY, client_secret=X_SECRET)
 
         while True:
             try:
@@ -42,25 +44,23 @@ def x_auth() -> OAuth1Session:
         # Get the access token
         access_token_url = "https://api.twitter.com/oauth/access_token"
         oauth = OAuth1Session(
-            TWITTER_KEY,
-            client_secret=TWITTER_SECRET,
+            X_KEY,
+            client_secret=X_SECRET,
             resource_owner_key=resource_owner_key,
             resource_owner_secret=resource_owner_secret,
             verifier=verifier,
         )
         oauth_tokens = oauth.fetch_access_token(access_token_url)
 
-        TWITTER_ACCESS_TOKEN = oauth_tokens["oauth_token"]
-        TWITTER_ACCESS_TOKEN_SECRET = oauth_tokens["oauth_token_secret"]
-
-        return oauth
+        X_ACCESS_TOKEN = oauth_tokens["oauth_token"]
+        X_ACCESS_TOKEN_SECRET = oauth_tokens["oauth_token_secret"]
 
     # Make the request
     oauth = OAuth1Session(
-        TWITTER_KEY,
-        client_secret=TWITTER_SECRET,
-        resource_owner_key=TWITTER_ACCESS_TOKEN,
-        resource_owner_secret=TWITTER_ACCESS_TOKEN_SECRET,
+        X_KEY,
+        client_secret=X_SECRET,
+        resource_owner_key=X_ACCESS_TOKEN,
+        resource_owner_secret=X_ACCESS_TOKEN_SECRET,
     )
 
     return oauth
@@ -68,4 +68,3 @@ def x_auth() -> OAuth1Session:
 
 if __name__ == "__main__":
     x_auth()
-

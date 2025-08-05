@@ -9,6 +9,7 @@ if "win" in platform:
     except Exception:
         pass
 
+
 async def send(message: str, bot_token: str, chat_id: str):
     bot = Bot(token=bot_token)
     await bot.send_message(chat_id=chat_id, text=message)
@@ -17,6 +18,9 @@ async def send(message: str, bot_token: str, chat_id: str):
 def send_message(message: str):
     TELEGRAM_BOT_TOKEN = get_env("TELEGRAM_BOT_TOKEN")
     TELEGRAM_CHAT_ID = get_env("TELEGRAM_CHAT_ID")
+
+    if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
+        return
 
     asyncio.run(send(message, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID))
 

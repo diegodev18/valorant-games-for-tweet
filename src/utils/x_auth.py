@@ -10,8 +10,8 @@ def x_auth() -> OAuth1Session:
         "X_KEY", "X_SECRET", "X_ACCESS_TOKEN", "X_ACCESS_TOKEN_SECRET"
     )
 
-    if not X_KEY or not X_ACCESS_TOKEN:
-        print('YOU MUST HAVE "X_KEY" AND "X_ACCESS_TOKEN" IN ".ENV" FILE')
+    if not X_KEY or not X_KEY:
+        print('YOU MUST HAVE "X_KEY" AND "X_KEY" IN ".ENV" FILE')
         exit(-1)
 
     if not X_ACCESS_TOKEN or not X_ACCESS_TOKEN_SECRET:

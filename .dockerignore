@@ -21,3 +21,9 @@ __pycache__/
 # Logs and databases
 games.pkl
 history.txt
+
+# Git and for github files
+.git/
+.gitignore
+README.md
+.env.example

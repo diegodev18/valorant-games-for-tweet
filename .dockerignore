@@ -1,7 +1,23 @@
+# Virtual environment
 venv/
-scripts/
-.ruff_cache/
-.ropeproject/
-__pycache__/
 
+# IDE settings
+.idea/
+
+# Developer-specific files
+scripts/
+test.py
+
+# Linter
+.ruff_cache/
+
+# Trash and cache
+__pycache__/
+.ropeproject/
+
+# Environment variables
+.env
+
+# Logs and databases
 games.pkl
+history.txt

@@ -1,7 +1,8 @@
 from os import environ
 from dotenv import load_dotenv
 
-load_dotenv()
+if environ.get("PYTHON_ENV") != "production":
+    load_dotenv()
 
 
 def get_env(key: str) -> str | None:

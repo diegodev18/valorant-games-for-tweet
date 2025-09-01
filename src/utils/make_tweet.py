@@ -1,7 +1,7 @@
 from random import choice
-from src.utils.upload_item_to_write import upload_items
-from src.utils.get_games import get_games
-from src.utils.get_data import get_data
+from utils.upload_item_to_write import upload_items
+from utils.get_games import get_games
+from utils.get_data import get_data
 
 
 def make_tweet_main(day):

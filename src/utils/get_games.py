@@ -1,6 +1,6 @@
 import pickle
 import requests
-from src.utils.get_dates import get_dates
+from utils.get_dates import get_dates
 from re import findall, search
 from bs4 import BeautifulSoup
 

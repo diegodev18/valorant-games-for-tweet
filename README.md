@@ -1,6 +1,6 @@
-![277_1x_shots_so](https://github.com/user-attachments/assets/a6bb05cd-e552-4887-8abc-12174f2cd8fa)
-
 # Valorant Games for Tweet
+
+![277_1x_shots_so](https://github.com/user-attachments/assets/a6bb05cd-e552-4887-8abc-12174f2cd8fa)
 
 > Este es un script basico que te permite obtener los juegos de valorant competitivo y publicarlos de manera automatica a twitter.
 
@@ -22,25 +22,11 @@ cd valorant-games-for-tweet
 
 ### 4. Selecciona los torneos que quieres publicar en X
 
-#### - Abre el archivo `tournament.txt`
+#### - Abre el archivo `src/data/tournaments.json`
 
-#### - Escribe el nombre del torneo que| quieres publicar
+#### - Escribe el nombre del torneo que quieres publicar
 
-### 5. Inicia el script
-
-#### Windows
-
-```cmd
-py init.py
-```
-
-#### Linux & MacOS
-
-```bash
-python3 init.py
-```
-
-### o con un contenedor de Docker
+### 5. Inicia el contenedor de Docker
 
 > El dockerfile ya esta configurado para ejecutar el script, solo necesitas construir la imagen y ejecutar el contenedor, sigue las instrucciones.
 
@@ -58,4 +44,4 @@ docker run -e X_KEY=<tu_clave_api_key> -e X_SECRET=<tu_clave_api_secret> -e X_AC
 
 ## Uso
 
-> El script se ejecutara a la hora que asignes en el script, y subira un tweet a tu cuenta de X con los juegos de valorant competitivo que selecciones.
+> El script se ejecutara a la hora que asignes en el script, y subira un tweet a tu cuenta de X con los juegos de valorant competitivo que seleccionaste en el archivo `src/data/tournaments.json`.

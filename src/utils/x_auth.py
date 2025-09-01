@@ -1,5 +1,5 @@
 import requests
-from src.utils.get_env import get_multi_env
+from utils.get_env import get_multi_env
 from time import sleep
 from requests_oauthlib import OAuth1Session
 from sys import exit

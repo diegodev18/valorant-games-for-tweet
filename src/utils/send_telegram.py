@@ -1,5 +1,5 @@
 import asyncio
-from src.utils.get_env import get_env
+from utils.get_env import get_env
 from sys import platform
 from telegram import Bot
 

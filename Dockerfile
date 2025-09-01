@@ -2,8 +2,10 @@ FROM python:alpine3.22
 
 WORKDIR /app
 
-COPY . /app
+COPY requirements.txt /app/requirements.txt
 
 RUN pip install --no-cache-dir -r requirements.txt
+
+COPY ./src /app
 
 CMD ["python", "app.py"]

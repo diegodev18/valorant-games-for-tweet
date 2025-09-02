@@ -7,6 +7,7 @@ from utils import get_sleep_time, x_auth, make_tweet_main, send_message, get_env
 
 env_production = get_env("PYTHON_ENV") == "production"
 
+print("SCRIPT VALORANT_GAMES_FOR_TWEET INICIADO CON EXITO!")
 
 def main():
     oauth = x_auth()

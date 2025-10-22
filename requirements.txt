@@ -4,6 +4,7 @@ beautifulsoup4
 requests_oauthlib
 python-telegram-bot
 python-dotenv
+google-genai
 
 # Next  are only if ur in development environ
 # ruff

@@ -10,6 +10,7 @@ venv/
 # Trash and cache
 __pycache__/
 .ropeproject/
+.DS_Store
 
 # Environment variables
 .env

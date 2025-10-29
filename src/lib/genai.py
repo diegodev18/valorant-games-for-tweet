@@ -1,5 +1,5 @@
 from google import genai
-from utils import get_env
+from utils.get_env import get_env
 
 GOOGLE_API_KEY = get_env("GOOGLE_API_KEY")
 

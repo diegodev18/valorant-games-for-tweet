@@ -7,43 +7,21 @@ from utils.get_data import get_data
 def make_tweet_main(day):
     emotes = "⌚🥵🤩🪐🍫🎬🤟🤯👏🔥🚀💣🎇🔫☣️☕🌭☀️"
     # Get from files
-    teams_title_limit = 15  # Limite de caracteres en el nombre del equipo a jugar
     phrases = get_data("phrases")
     at_signs = get_data("at_signs")
-    tournaments = get_data("tournaments")
     # Start function
+    checked_games = get_games()
     games_today = [
         f"{choice(phrases)} {choice(['en', 'para'])} @{choice(at_signs)} {choice(emotes)}\n"
     ]
-    checked_games = []
-    games = get_games()
-    for game in games:
-        if (
-            game["date"].day == day
-            and any(
-                tournament in game["server"].split(" ") for tournament in tournaments
-            )
-        ) and len(games_today) != 6:
-            games_today.append(
-                f"{game['server']} | {game['left'][:teams_title_limit]} vs {game['right'][:teams_title_limit]}"
-            )
-        if any(tournament in game["server"] for tournament in tournaments):
-            checked_games.append(
-                f"GAME ON TOURNAMENT LIST:      "
-                f"{game['server'][:10]} | {game['date']} | {game['left'][:10]} vs {game['right'][:10]}"
-            )
-        else:
-            checked_games.append(
-                f"GAME WITHOUT TOURNAMENT LIST: "
-                f"{game['server'][:10]} | {game['date']} | {game['left'][:10]} vs {game['right'][:10]}"
-            )
+    for game in checked_games:
+        games_today.append(f"{game['date']} - {game['left']} vs {game['right']}")
     upload_items(checked_games, "history.txt")
     if len(games_today) > 1:
         tweet = "\n".join(games_today)
         tweet = f"{tweet[:275]}..."
-    else:
-        return None
-    return tweet
+        return tweet
+    return None
 
 
 if __name__ == "__main__":

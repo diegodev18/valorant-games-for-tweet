@@ -20,13 +20,11 @@ def scrape_games():
         html_game = str(game)
         teams = findall(r'<a href="/valorant/[^"]+" title="[^"]+">([A-Z]{2,5})</a>', html_game)
         times = search(r'>([A-Za-z]+\s\d{1,2},\s\d{4}\s-\s\d{2}:\d{2})\s*<abbr', html_game)
-        server = search(r'<span class="tournament-name"><a [^>]+>([^<]+)</a>', html_game)
-        if len(teams) > 1 and times and server:
+        if len(teams) > 1 and times:
             list_teams = {
                 "left": teams[0],
                 "right": teams[1],
                 "date": times.group(1),
-                "server": server.group(1),
             }
             games.append(list_teams)
             n += 1
@@ -53,6 +51,5 @@ if __name__ == "__main__":
     for game in games:
         if game["date"].day == datetime.now().day:
             for tournament in tournaments:
-                if tournament in game["server"]:
-                    print(game)
-                    break
+                print(game)
+                break

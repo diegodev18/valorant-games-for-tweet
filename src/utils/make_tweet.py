@@ -1,27 +1,38 @@
-from random import choice
+from datetime import datetime
 from utils.upload_item_to_write import upload_items
 from utils.get_games import get_games
 from utils.get_data import get_data
+from utils.llm import generate_text
+import json
 
 
 def make_tweet_main(day):
-    emotes = "⌚🥵🤩🪐🍫🎬🤟🤯👏🔥🚀💣🎇🔫☣️☕🌭☀️"
-    # Get from files
-    phrases = get_data("phrases")
-    at_signs = get_data("at_signs")
     # Start function
     checked_games = get_games()
-    games_today = [
-        f"{choice(phrases)} {choice(['en', 'para'])} @{choice(at_signs)} {choice(emotes)}\n"
-    ]
-    for game in checked_games:
-        games_today.append(f"{game['date']} - {game['left']} vs {game['right']}")
     upload_items(checked_games, "history.txt")
-    if len(games_today) > 1:
-        tweet = "\n".join(games_today)
-        tweet = f"{tweet[:275]}..."
-        return tweet
-    return None
+
+    if checked_games is None or len(checked_games) == 0:
+        return None
+
+    tweet = generate_text(
+        f"""\
+Crea un tweet en español para anunciar los siguientes partidos de VALORANT.
+El tweet debe ser conciso y atractivo, utilizando un lenguaje informal y emojis relacionados con videojuegos y tecnología.
+El tweet debe incluir una introducción llamativa y una lista de los partidos con sus fechas y equipos.
+Limita el tweet a un máximo de 275 caracteres.
+
+Haz una investigacion rapida para incluir los nombres de los equipos mas populares en la comunidad hispanohablante de VALORANT.
+
+Partidos:
+{json.dumps(checked_games, ensure_ascii=False)}
+
+Solo usa los juegos de hoy para crear el tweet.
+La fecha de hoy en formato ISO es {datetime.now().isoformat()}.
+El target de usuarios es hispanohablante, mas especificamente Mexicano.
+"""
+    )
+
+    return tweet[:279]
 
 
 if __name__ == "__main__":
